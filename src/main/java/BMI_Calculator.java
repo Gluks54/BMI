@@ -54,6 +54,7 @@ public class BMI_Calculator implements Calculate<String> {
                        return array [i - 1][1];
                    }
             }
+            
             return null;
         }
     }
