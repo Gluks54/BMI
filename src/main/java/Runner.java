@@ -10,17 +10,19 @@ public class Runner {
         double weight = 0.0;
         double height = 0.0;
         System.out.println("Type your weight");
-        while (weight <= 0.0){
-            try{
-                weight = scanner.nextDouble();
-                if(weight <= 0.0){
+
+        while (weight <= 0.0 ) {
+            try {
+                    weight = scanner.nextDouble();
+                if (weight <= 0.0) {
                     System.out.println("Incorrect weight, try again");
                 }
-            }
-            catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Incorrect weight, try again");
-                scanner.nextDouble();
+                      scanner.next();
+
             }
+        }
             System.out.println("Type your height");
             while (height <= 0.0) {
                 try {
@@ -28,17 +30,13 @@ public class Runner {
                     if (height <= 0.0) {
                         System.out.println("Incorrect height, try again");
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("Incorrect height, try again");
-                    scanner.nextDouble();
+                    scanner.next();
                 }
             }
-
         String temp =  calcul.calculate(weight,height);
         String rezult = calcul.interpret(temp);
         System.out.println(rezult);
-
-        }
-
     }
 }
