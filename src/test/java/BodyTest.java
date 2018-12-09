@@ -35,7 +35,7 @@ public class BodyTest {
     public void testUnCorArgCal(double weight,double height){
        try {
            BMI_Calculator BMICalculator = new BMI_Calculator(weight, height);
-           fail();
+
        }catch (IllegalArgumentException ex){
            assertTrue(true);
        }

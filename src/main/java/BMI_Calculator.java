@@ -1,28 +1,30 @@
 import java.text.DecimalFormat;
 
-public class BMI_Calculator implements Calculate {
+public class BMI_Calculator implements Calculate<String> {
+    double weight;
+    double height;
 
-   private double WEIGHT;
-   private double HEIGHT;
+    public BMI_Calculator(){}
 
-    public BMI_Calculator(){
+    public BMI_Calculator(double weight,double height){
+        this.height = height;
+        this.weight = weight;
     }
 
-    public BMI_Calculator(double weight, double height) {
-        if(weight < 0 | height < 0 | weight == 0 | height == 0) {
-           throw  new IllegalArgumentException();
-        }else {
-            this.HEIGHT = height;
-            this.WEIGHT = weight;
-        }
-    }
 
     @Override
-    public String calculate(double weight, double height) {
+    public String calculate(double ...params) {
+        double weight = params[0];
+        double height = params[1];
         double temp = weight / Math.pow(height / 100, 2);
         DecimalFormat f = new DecimalFormat("##.0");
         return f.format(temp);
-    }
+}
+
+
+
+
+
     @Override
     public String interpret(String bmi) throws IllegalArgumentException {
         String [][] array = {
