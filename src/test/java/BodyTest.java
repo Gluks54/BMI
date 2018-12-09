@@ -2,17 +2,15 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.security.PublicKey;
 @RunWith(JUnitParamsRunner.class)
 public class BodyTest {
 
-    Body tempBody;
+    BMI_Calculator tempBMICalculator;
     @Before
     public void setUp(){
 
@@ -21,8 +19,8 @@ public class BodyTest {
     @Test
     @Parameters(method = "paramCorTest")
     public void testCorArgCal(double weight, double height, String exp){
-            Body body = new Body(weight,height);
-            assertEquals(exp,body.calculate(weight,height));
+            BMI_Calculator BMICalculator = new BMI_Calculator(weight,height);
+            assertEquals(exp, BMICalculator.calculate(weight,height));
     }
 
     private Object [] paramCorTest(){
@@ -36,8 +34,8 @@ public class BodyTest {
     @Parameters(method = "uncorMethod")
     public void testUnCorArgCal(double weight,double height){
        try {
-           Body body = new Body(weight, height);
-           //fail();
+           BMI_Calculator BMICalculator = new BMI_Calculator(weight, height);
+           fail();
        }catch (IllegalArgumentException ex){
            assertTrue(true);
        }
@@ -56,23 +54,24 @@ public class BodyTest {
     @Test
     @Parameters(method = "corArgInt")
     public void testCorArgInt(String bmi, String label){
-        Body body = new Body();
-        body.interpret(bmi,label);
+        BMI_Calculator bmi_calculator = new BMI_Calculator();
+        bmi_calculator.interpret(bmi);
+        assertEquals(label,bmi_calculator.interpret(bmi));
     }
     private Object [] corArgInt(){
         return new Object[][]{
-                {"15, very severely underweight"},
-                {"15.5, severely underweight"},
-                {"18.5, underweight"}
+                {"15","Very severely underweight"},
+                {"15.5","Severely underweight"},
+                {"18.5","Underweight"}
         };
     }
 
     @Test
     @Parameters(method = "unCrArgInt")
-    public  void testUnCorArgInt(String bmi, String label){
-            Body body = new Body();
+    public  void testUnCorArgInt(String bmi){
+            BMI_Calculator BMICalculator = new BMI_Calculator();
            try {
-               body.interpret(bmi, label);
+               BMICalculator.interpret(bmi);
            }catch (IllegalArgumentException ex){
                assertTrue(true);
            }
@@ -80,9 +79,9 @@ public class BodyTest {
 
     private Object [] unCrArgInt(){
         return new Object[][]{
-                {"1,0, very severely underweight"},
-                {"14g, severely underweight"},
-                {".25, underweight"}
+                {"1,0"},
+                {"14g"},
+                {".25"}
         };
     }
 }
